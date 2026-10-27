@@ -149,5 +149,13 @@ public:
     // preorder: root -> left -> right
     // time: O(n)
     // space: O(log n) avg, O(n) worst (list)
-    void DFprintIterative() const { _DFprint_preorder_iterative(root); }
+    void DFprintIterativePreorder() const { _DFprint_preorder_iterative(root); }
+    // depth first traversal print (iterative)
+    // inorder: left -> root -> right
+    void DFprintIterativeInorder() const { _DFprint_inorder_iterative(root); }
+    // depth first traversal print (iterative)
+    // postorder: left -> right -> root
+    void DFprintIterativePostorder() const {
+        _DFprint_postorder_iterative(root);
+    }
 };

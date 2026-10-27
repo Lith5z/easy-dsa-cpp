@@ -51,7 +51,7 @@ public:
         Node* p = sentinel->next;  // 跳过哨兵节点
         int cnt = 0;
         while (p != nullptr) {
-            std::cout << cnt << ": " << p->val << std::endl;
+            std::cout << cnt << ": " << p->val << '\n';
             p = p->next;
             cnt++;
         }

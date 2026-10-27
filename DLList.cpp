@@ -89,7 +89,7 @@ public:
         Node* p = sentinel->next;  // 跳过哨兵节点
         int cnt = 0;
         while (p != sentinel) {
-            std::cout << cnt << ": " << p->val << std::endl;
+            std::cout << cnt << ": " << p->val << '\n';
             p = p->next;
             cnt++;
         }
@@ -98,7 +98,7 @@ public:
         Node* p = sentinel->prev;
         int cnt = size - 1;
         while (p != sentinel) {
-            std::cout << cnt << ": " << p->val << std::endl;
+            std::cout << cnt << ": " << p->val << '\n';
             p = p->prev;
             cnt--;
         }
@@ -153,6 +153,6 @@ int main() {
         assert(list.getLast() == 42);
     }
 
-    std::cout << "All DLList remove tests passed." << std::endl;
+    std::cout << "All DLList remove tests passed." << '\n';
     return 0;
 }

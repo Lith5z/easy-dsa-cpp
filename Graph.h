@@ -1,9 +1,12 @@
 /*
 图的cpp邻接表实现
 
-其实就是一个二维的数组，其中行是节点数（约定是固定的），列是节点的邻居
-
+其实就是一个二维的数组，其中行是顶点数（约定是固定的），列是顶点的邻居
+数据存储在std::vector<std::vector<int>> adj
+adj[i]是顶点[i]的邻居，以vector形式给出
 */
+
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -36,19 +39,13 @@ public:
 
     int v() const { return V; }
     int e() const { return E; }
+    // O(V+E)，无向图会打印两次
+    // 内部循环是adj[i].size，求和就是E；同时对于外部遍历有V的额外开销
     void printEdges() const {
         for (int i = 0; i < V; i++) {
             for (int e : adj[i]) {
-                std::cout << i << '-' << e << std::endl;
+                std::cout << i << '-' << e << '\n';
             }
         }
     }
 };
-
-int main() {
-    Graph g(3, true);
-    g.addEdge(0, 1);
-    g.addEdge(1, 2);
-    g.addEdge(0, 2);
-    g.printEdges();
-}
