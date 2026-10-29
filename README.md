@@ -32,7 +32,9 @@
 - BinaryTree：二叉树，重点遍历（*这部分CS61B也是在Hash后面讲的，同上*）
   - BST：二叉搜索树，重点插入/删除/查询，递归写法
 - B-tree：给定参数t的B-tree，**代码略去**
-- Red-BlackTree：LLRB左倾红黑树
+- 旋转平衡树们：
+  - Red-BlackTree：LLRB左倾红黑树，只实现插入
+  - More/AVLTree：旋转平衡树，参考LLRB来实现
 - More/BitSet：集合的位向量实现方法，类似vector<bool>
 - Hash：无序set/map的实现方法，哈希表
 - Graph：图的邻接表实现

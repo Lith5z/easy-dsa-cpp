@@ -14,8 +14,10 @@ head->[0]->[1]->[2]->[3]->[4]->[5]->[6]->[7]->[8]，我们知道查找是O(n)
 为什么要使用带node参数的私有方法实现递归：自己试试不用就知道了
 1. insert/contain/remove这些作为类的方法，返回值是void/bool
 2. 这些方法的参数列表，都是int val
-而递归调用需要传递参数，往往是通过返回值，传入参数实现的
+而递归调用需要传递参数，往往是通过返回值和传入参数实现的
 类的方法没有合适的返回值和参数列表，根本就没法写成递归
+3. 另外，利用返回值可以更新父节点（调用者）的连接
+二叉树的节点没有prev前驱指针，用这个方法可以更新
 */
 
 #include <cassert>
@@ -36,11 +38,12 @@ private:
         if (val < node->data) return _contain(node->left, val);
         return _contain(node->right, val);
     }
+    // 把val插入以node为根的子树，并返回插入完成后这棵子树的根节点
     Node* _insert(Node* node, int val) {
         // 返回新节点，给上一步的node->left/right赋值
         if (node == nullptr) return new Node(val, nullptr, nullptr);
 
-        // 把val插入以node为根的子树，并返回插入完成后这棵子树的根节点
+        // 递归调用，可能更新当前的连接（如果node->left为空）
         if (val < node->data)
             node->left = _insert(node->left, val);
         else if (val > node->data)
@@ -49,7 +52,7 @@ private:
         // val == node->data的时候，直接返回当前node*，不重复插入
         return node;
     }
-    // 返回删除后的树的root，返回值仅用于递归
+    // 返回删除后的树的root，返回值仅用于递归更新调用者的连接
     Node* _remove(Node* root, int val) {
         if (root == nullptr) {
             // i.e. return nullptr
@@ -67,8 +70,8 @@ private:
             }
             else if (root->left == nullptr) {
                 Node* temp = root;
-                root =
-                    root->right;  // 删除后新子树的根是root->right，返回这个值
+                root = root->right;
+                // 删除后新子树的根是root->right，返回这个值
                 delete temp;
             }
             else if (root->right == nullptr) {
@@ -78,8 +81,9 @@ private:
             }
             else {
                 // 有两个子节点
-                // 把此节点的值改成左子树的max or右子树的min，BST仍成立
-                // 然后删掉这个max/min即可
+                // 把此节点的值改成左子树的max或者右子树的min，BST仍成立
+                // （这三个值是相邻的，左max < this < 右min）
+                // 然后删掉原本的max/min节点即可
                 Node* temp = getMinNode(root->right);
                 root->data = temp->data;
                 // 修改了root的右子树
@@ -88,11 +92,6 @@ private:
         }
         return root;  // 所有情况都要返回给调用者（父节点）修改连接
     }
-
-public:
-    bool contain(int val) const { return _contain(root, val); }
-    void insert(int val) { root = _insert(root, val); }
-    void remove(int val) { root = _remove(root, val); }
     Node* getMinNode(Node* start) const {
         assert(start != nullptr);
         Node* p = start;
@@ -109,6 +108,12 @@ public:
         }
         return p;
     }
+
+public:
+    bool contain(int val) const { return _contain(root, val); }
+    void insert(int val) { root = _insert(root, val); }
+    void remove(int val) { root = _remove(root, val); }
+
     int getMin() const { return getMinNode(root)->data; }
     int getMax() const { return getMaxNode(root)->data; }
 };

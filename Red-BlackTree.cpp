@@ -33,6 +33,7 @@ LLRB树就是增加了红连接（必须是左侧连接）的BST，每个2-3树�
 
 上面仅挑选了跟代码实现相关的重点，具体内容推荐看课程原文
 或者 https://algs4.cs.princeton.edu/33balanced/
+又或者 https://www.hello-algo.com/chapter_tree/avl_tree/
 代码参考 https://algs4.cs.princeton.edu/33balanced/RedBlackLiteBST.java.html
 */
 
@@ -120,6 +121,7 @@ private:
         return fix(root);
     }
 
+    // 和BST一样
     bool _contain(const Node* node, int val) const {
         if (node == nullptr) return false;
         if (node->data == val) return true;
