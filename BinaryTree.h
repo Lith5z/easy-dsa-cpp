@@ -32,7 +32,7 @@ private:
         std::queue<Node*> frontier;
         frontier.push(node);
         while (!frontier.empty()) {
-            // 下面三行的顺序不严格固定，只要从frontier里取出/访问就相当于删除了
+            // 下面三行的顺序不严格固定，只要先取出top再pop效果都是一样的
             Node* p = frontier.front();
             std::cout << p->data << " ";
             frontier.pop();
@@ -79,12 +79,13 @@ private:
                 p = p->left;
             }
 
-            // 此时p == nullptr，取出栈顶，访问最左侧尚未访问的节点
+            // 当前的所有左子树都进栈了，该访问根了
+            // 此时p == nullptr，取出栈顶，就是需要访问的根
             p = frontier.top();
             frontier.pop();
             std::cout << p->data << " ";
 
-            // 转向右子树
+            // 左中，然后是右，开始考虑右子树，继续下一轮
             p = p->right;
         }
     }

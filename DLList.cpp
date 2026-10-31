@@ -2,7 +2,7 @@
 
 // 双向链表的最佳实现，表头有一个哨兵节点，整个链表形成一个循环
 // 空表时，哨兵的prev和next都指向自身
-// 这样的好处是，避免了对空表情况的单独讨论，而且对立功能的代码也类似（比如addFirst和addLast）
+// 这样的好处是，避免了对空表情况的单独讨论，而且对称功能的代码也类似（比如addFirst和addLast）
 
 #include <cassert>
 #include <iostream>

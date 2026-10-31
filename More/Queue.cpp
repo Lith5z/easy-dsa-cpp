@@ -61,8 +61,8 @@ public:
 // current pos = i, next pos = i+1 if linear
 // in circle, next pos = (i+1) % n
 // replace all `i+1` to `i = (i+1) % n`
-// size = (tail-front+1+n) % n
-// 遇到减法，+n以确保不为负数
+// size = (tail-front+n) % n + 1
+// 遇到减法，+n以确保不对负数取余
 class CircularArrayQueue : public Queue {
 private:
     int* data;

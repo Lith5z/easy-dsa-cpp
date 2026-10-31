@@ -39,8 +39,9 @@ public:
 
     int v() const { return V; }
     int e() const { return E; }
-    // O(V+E)，无向图会打印两次
-    // 内部循环是adj[i].size，求和就是E；同时对于外部遍历有V的额外开销
+    // O(V+E)
+    // 内部循环是adj[i].size，求和就是E（无向图是2E）
+    // 同时对于外部遍历有V的额外开销
     void printEdges() const {
         for (int i = 0; i < V; i++) {
             for (int e : adj[i]) {

@@ -11,7 +11,7 @@ vector<int> prefix_function(const string& s) {
     vector<int> pi(n);
     // pi[0] = 0
     for (int i = 1; i < n; i++) {
-        // pi[i+1] <= pi[i] + 1，所以子串s[0...i]前后缀相同的最大长度是pi[i-1]=j
+        // pi[i] <= pi[i-1] + 1，所以子串s[0...i]前后缀相同的最大长度是pi[i-1]=j
         // 对应的前缀是 s[0...j-1]，所以 j 正好指向要比较的下一位
         int j = pi[i - 1];
         // 一直匹配j，如果 s[i]==s[j]，前缀是s[0...j]，长度是 j+1 赋值给pi[i]

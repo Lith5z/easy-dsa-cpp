@@ -18,8 +18,8 @@ public:
 };
 
 // 一种基于数组的实现，每个数都有自己的识别id
-// 如果p q连接就把p
-// q（以及所有和p连接的数，也就是id与p_id相同的）的id设置为一致的
+// 如果p q连接就把p q
+// （以及所有和p连接的数，也就是id与p_id相同的）的id设置为一致的
 class QuickCheckDS : public DisjointSet {
 private:
     int* id;

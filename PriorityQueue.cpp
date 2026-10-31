@@ -10,7 +10,7 @@ push 后移已有项直到找到正确位置；pop 全部前移
 - BST的拷贝比较麻烦
 
 与其使用BST，不如实现一个每个节点都比子节点要小的二叉树
-如果这个二叉树是完美的complete，就可以通过数组模拟，也就是二叉堆
+如果这个二叉树是完全的complete，就可以通过数组模拟，也就是二叉堆
 
 注意二叉树和数组的下标对应关系，给定数组下标[i]
 父节点在[(i-1)/2]，左子节点是[2i+1]
@@ -126,7 +126,7 @@ private:
     }
 
 public:
-    HeapPriorityQueue() : size(0), capacity(0), data(nullptr) {}
+    HeapPriorityQueue() : size(0), capacity(10), data(nullptr) {}
     // 使用siftDown建堆 O(n)，使用siftUp O(n logn)
     HeapPriorityQueue(int* arr, int arr_size)
         : size(arr_size), capacity(arr_size * 2) {

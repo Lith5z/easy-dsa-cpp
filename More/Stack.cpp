@@ -3,6 +3,7 @@
 #include "Stack.h"
 
 #include <cassert>
+#include <cstring>
 #include <iostream>
 
 using namespace std;
@@ -29,7 +30,7 @@ public:
         capacity = size;
         data = new int[size];
     }
-    ~ArrayStack() { delete data; }
+    ~ArrayStack() { delete[] data; }
 
     bool isEmpty() const override { return top == -1; }
     bool isFull() const override { return top == capacity - 1; }
@@ -62,6 +63,7 @@ class ListStack : public Stack {
 private:
     Node* top;
 
+public:
     ListStack() : top(nullptr) {}
     ~ListStack() {
         Node *p = top, *nxt;
@@ -72,7 +74,6 @@ private:
         }
     }
 
-public:
     bool isEmpty() const override { return top == nullptr; }
     bool isFull() const override { return false; }
     int getTop() const override {

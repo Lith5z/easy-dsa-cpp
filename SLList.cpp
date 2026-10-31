@@ -1,8 +1,8 @@
 // a singly linked list
 
 // 单链表在add/remove时要分别处理空表与非空的情况，因为当列表为空时，访问first->next是非法的
-// 下面用的是表头带哨兵节点sentinel的方法，即使是空表
-// 插入时：sentinel也指向哨兵，保证sentinel->next合法
+// 下面用的是表头带哨兵节点sentinel的方法，逻辑上的空表实际也自带sentinel节点，就不用专门写空表的if
+// 插入时：sentinel作为哨兵节点也存在，保证sentinel->next合法
 // 删除时：保证前驱指针prev永远非空
 
 #include <iostream>

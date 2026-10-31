@@ -8,7 +8,7 @@ B-tree的每个节点可以容纳至多L个元素，至多有L+1个子节点
     [15,17]
    /   |   |
 [14] [16] [18,19]
-分支是大小的氛围：14 < 15; 15 < 16 < 17; 17 < 18,19
+分支是大小的范围：14 < 15; 15 < 16 < 17; 17 < 18,19
 
 超出L时，将中间（偶数取左边）位置的元素移动到父节点，剩余部分作为子树连接到父节点
 如L=3，[15]                 [15,17]
@@ -17,7 +17,7 @@ B-tree的每个节点可以容纳至多L个元素，至多有L+1个子节点
 如果是root超出L，则中间元素会作为新的root
 
 除了L，B-tree还有一个参数t，为非根的最小度数（节点的最小子树数量）
-对于标准B-tree，2t=L+1，这意味着一个非根节点有[t,L]个子节点
+对于标准B-tree，2t=L+1，这意味着一个非根节点有[t,L+1]个子节点
 Because of the way B-Trees are constructed, we get two nice invariants:
 1. All leaves must be the same distance from the source
    因为只有root超出L才会增加树的高度，而对于所有节点都+1
