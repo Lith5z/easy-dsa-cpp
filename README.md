@@ -4,7 +4,6 @@
 
 - UCB CS61B的课内部分，用cpp而非java实现
 - 其他常见的数据结构课程内容，比如KMP、优先队列等
-- mycodeschool的内容，特别是二叉树部分
 
 这些内容完全可以让AI写（事实上本仓库的不少代码也是AI改的），本仓库的区别在于
 
@@ -38,8 +37,10 @@
   - More/AVLTree：旋转平衡树，参考LLRB来实现
 - More/BitSet：集合的位向量实现方法，类似vector<bool>
 - Hash：无序set/map的实现方法，哈希表
-- Graph：图的邻接表实现
+- Graph：图，邻接表实现
   - GraphTraversal：图的dfs和bfs遍历，迭代和递归，前序和后序
+  - WeightedGraph：有权图
+  - Dijkstra：最短路径算法
 
 ## 其他
 
