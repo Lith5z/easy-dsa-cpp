@@ -107,7 +107,8 @@ private:
         }
     }
 
-    // 事实上上面的写法不是最优的，下面以siftDown为例
+    // 事实上上面的写法不是最优的，因为std::swap需要一个中间变量
+    // 其实可以只移动空位，下面以siftDown为例
     void siftDownOp(int start) {
         int i = start, j = 2 * i + 1;  // j是i的左子女
         int temp = data[i];            // 取出将要向下的元素

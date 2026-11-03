@@ -24,8 +24,8 @@ class AVLTree {
 private:
     Node* root = nullptr;
 
-    // 单独写获取height和bf的方法，原因和LLRB的isRed类似
-    // 避免对nullptr的检查
+    // 单独写获取height和bf的方法
+    // 原因和LLRB的isRed类似，避免对nullptr的检查
     static int height(const Node* node) {
         if (node == nullptr)
             return -1;
@@ -108,11 +108,12 @@ private:
         else
             return node;  // 不重复插入
         // 完成插入之后调整高度
+        // 这里看起来只改变了插入节点的高度，其实_insert的递归调用过程是从根到叶的，递归返回时就正确的从下往上更新高度
         updateHeight(node);
         node = rotate(node);
         return node;
     }
-    // 删除也是同样的，在结尾进行高度调整，这里略去
+    // 删除也是同样的，在结尾添加一步高度调整，这里略去
 
 public:
     bool contain(int val) const { return _contain(root, val); }

@@ -144,7 +144,9 @@ public:
 class WeightedQuickConnectWithPathCompressionDS
     : public WeightedQuickConnectDS {
 protected:
-    // 找到根节点，并把路径上的节点直接连接到根节点
+    // 遍历两次：
+    // 1. 找到根节点
+    // 2. 重新遍历，把路径上的节点直接连接到根节点
     // O(log n)，均摊复杂度接近O(1)
     int root(int p) override {
         int res = p;

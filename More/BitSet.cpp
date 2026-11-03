@@ -29,7 +29,7 @@ private:
 public:
     BitSet(int size) : setSize(size) {
         vectorSize = (size + 31) / 32;           // 不满一个数，向上取整
-        bitVector = new uint32_t[vectorSize]();  // 初始为0
+        bitVector = new uint32_t[vectorSize]();  // ()初始化为0，代表都没有
     }
     ~BitSet() { delete[] bitVector; }
 

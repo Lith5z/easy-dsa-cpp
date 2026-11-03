@@ -23,8 +23,8 @@ dfs给出前序，对于递归来说容易改成后序，对于迭代比较麻�
 // preorder：操作在继续遍历之前，这里即先访问top再考虑top的邻居
 std::vector<int> dfs(const Graph& g, int s = 0) {
     std::stack<int> frontier_id;  // 边缘栈，又叫fringe
-    // vector<char>作为标记数组，visited[i]==0代表未访问
-    // 也可以用vector<bool>，但是我觉得这个太奇葩了
+    // 因为存储的int，可以直接把int作为index，用vector<char>作为标记数组，visited[i]==0代表未访问
+    // 一般来说用的是unordered_set
     std::vector<char> visited(g.v(), 0);
     std::vector<int> result;
     result.reserve(g.v());
