@@ -35,13 +35,11 @@ std::vector<int> dfs(const Graph& g, int s = 0) {
         // 取出栈顶的顶点，根据标记决定要不要访问
         int cur = frontier_id.top();
         frontier_id.pop();
-        if (visited[cur])
-            continue;  // 之前访问了，不访问
-        else {         // 没访问过，访问并标记
+        if (visited[cur] == 0) {  // 没访问过，访问并标记
             result.push_back(cur);
             visited[cur] = 1;
         }
-        // 把邻居逆序放入栈，原因见后
+        // 把没访问过的邻居放入栈，逆序入栈的原因见后
         // 注意匹配返回类型，避免拷贝vector
         const std::vector<int>& successors = g.getNeighbors(cur);
         for (auto it = successors.rbegin(); it != successors.rend(); ++it) {
@@ -118,6 +116,7 @@ for (int next : successors) {
     frontier_id.push(next);
 }
 因为dfs是先放入栈再访问，所以栈的LIFO使得最后压入的邻居会最先访问，这样就和递归版本不一样了
+
 2. 其次这和邻接表中顶点的添加顺序有关
 顶点的添加顺序会影响邻接表的储存顺序（因为是vector）
 可以试着调整下面main的顺序，看看输出结果不同
@@ -131,7 +130,7 @@ remarks
 
 理论上，把dfs的栈改成队列，就是bfs了
 （当然要去掉逆序迭代器，队列本来就是FIFO的，顺序是对的）
-但是这样会重复入队，这里的bfs调整了添加到标记数组的时机，去掉了重复问题
+但是这样会重复入队，所以这里的bfs调整了添加到标记数组的时机，去掉了重复问题
 
 为什么dfs不也这样做？
 你可以试试按着bfs的标记时机写一个dfs，虽然也不重复入栈了，但是结果是错误的，得到03214，可是3后面应该是1
@@ -162,7 +161,12 @@ std::vector<int> dfs(const Graph& g, int s = 0) {
 这是因为在0访问并出栈之后，开始处理0的邻居123，这些都未访问，就都加入了栈，而且都标记了访问
 等到访问完3，开始处理3的邻居1，就被0提前固定了没法访问
 
-bfs并不会有这个问题，123入队，123出队，3的邻居是1这种同层之间的连接直接被忽略
+bfs并不会有这个问题，123入队，123出队
+3的邻居是1这种同层之间的连接，只有到了访问该层节点的时候才会发现，并不会对当前的访问顺序产生影响
+（队列的FIFO性质）
+
+但是如果你在写图的搜索，这种不反复入栈，但是不符合DFS顺序的写法反而是更好的
+毕竟搜索不关心这些细节顺序上的问题，CS188用的就是这种写法
 
 remarks
 这其实是frontier_id的不同

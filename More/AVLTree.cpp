@@ -68,6 +68,7 @@ private:
         return p;
     }
     // 国内教材会把双旋单独拆成RotateLR/RotateRL，其实双旋就是"先转孩子、再转自己"
+    // 具体什么情况选择什么旋转，见开头提到的网页
     Node* rotate(Node* node) {
         int bf = balanceFactor(node);
         if (bf > 1) {
