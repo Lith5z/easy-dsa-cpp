@@ -19,28 +19,33 @@
 
 根目录下是CS61B课程的内容
 
-- SLList：单向链表，带哨兵节点的实现
-- DLList：双向链表，哨兵+循环的实现
-- AList：用数组实现链表
+- 链表：
+  - SLList：单向链表，带哨兵节点的实现
+  - DLList：双向链表，哨兵+循环的实现
+  - AList：用数组实现链表
 - More/Stack：栈，数组和链表实现
   - algorithm/expression：前缀表达式求值，转化相关
 - More/Queue：队列，循环数组、带尾指针的链表
   - More/Deque：双端队列，循环数组
   - PriorityQueue：优先队列，数组、二叉堆实现（*这部分CS61B是在Hash后面讲的，我的实现主要参考自己课堂上的内容*）
 - DisjointSet：并查集/连通集
+  - More/UFS：抽取了并查集最佳的实现方法，仅头文件，给之后的MST Kruskal算法用
 - algorithm/KMP：字符串匹配的KMP算法，前缀函数、next数组
-- BinaryTree：二叉树，重点遍历（*这部分CS61B也是在Hash后面讲的，同上*）
-  - BST：二叉搜索树，重点插入/删除/查询，递归写法
-- B-tree：给定参数t的B-tree，**代码略去**
-- 旋转平衡树们：
-  - Red-BlackTree：LLRB左倾红黑树，只实现插入
-  - More/AVLTree：旋转平衡树，参考LLRB来实现
-- More/BitSet：集合的位向量实现方法，类似vector<bool>
-- Hash：无序set/map的实现方法，哈希表
+- 树：
+  - BinaryTree：二叉树，重点遍历（*这部分CS61B也是在Hash后面讲的，同上*）
+    - BST：二叉搜索树，重点插入/删除/查询，递归写法
+  - B-tree：给定参数t的B-tree，**代码略去**
+  - 旋转平衡树：
+    - Red-BlackTree：LLRB左倾红黑树，只实现插入
+    - More/AVLTree：旋转平衡树，参考LLRB来实现
+- 集合和哈希
+  - More/BitSet：集合的位向量实现方法，类似vector<bool>
+  - Hash：无序set/map的实现方法，哈希表
 - Graph：图，邻接表实现
   - GraphTraversal：图的dfs和bfs遍历，迭代和递归，前序和后序
   - WeightedGraph：有权图
   - Dijkstra：最短路径算法
+  - MST：最小生成树的Kruskal和Prim算法
 
 ## 其他
 
