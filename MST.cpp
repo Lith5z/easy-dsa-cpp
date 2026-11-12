@@ -102,7 +102,7 @@ Kruskal算法因为需要得到{from,to,w}的所有边
 using FullEdge = std::tuple<int, int, int>;
 
 struct KruskalMST {
-    int v;  // 没有distTo这些辅助数组提供总定点数，只能单独存
+    int v;  // 没有distTo这些辅助数组提供总顶点数，只能单独存
     std::vector<FullEdge> edges;
 
     int e() const { return (int)edges.size(); }
@@ -126,7 +126,7 @@ KruskalMST kruskal(const WeightedGraph& g) {
     std::priority_queue<FullEdge, std::vector<FullEdge>, std::greater<>> pq;
     for (int i = 0; i < v; i++)
         for (const Edge& e : g.getNeighbors(i))
-            // MST是无向图的性质，无向图里有a-b,b-a两条边
+            // MST只在无向图上定义，无向图里有a-b,b-a两条边
             // 只取出a<b的有序对，防止重复
             if (i < e.to) pq.push({e.weight, i, e.to});
 

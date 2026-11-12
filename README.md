@@ -42,7 +42,7 @@
   - More/BitSet：集合的位向量实现方法，类似vector<bool>
   - Hash：无序set/map的实现方法，哈希表
 - Graph：图，邻接表实现
-  - GraphTraversal：图的dfs和bfs遍历，迭代和递归，前序和后序
+  - GraphTraversal：图的dfs和bfs遍历，迭代和递归，前序
   - WeightedGraph：有权图
   - Dijkstra：最短路径算法
   - MST：最小生成树的Kruskal和Prim算法

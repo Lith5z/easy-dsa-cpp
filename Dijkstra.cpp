@@ -3,7 +3,6 @@
 
 - edgeTo[v] is the best known predecessor of v.
 - distTo[v] is the best known total distance from source to v.
-- PQ contains all unvisited vertices in order of distTo.
 
 和CS61B里一样，Dijkstra会返回edgeTo和distTo数组，代表最短路径树SPT
 所以这里用一个ShortestPath结构体，包含两个数组
@@ -89,7 +88,7 @@ ShortestPath dijkstra(const WeightedGraph& g, int s) {
 }
 
 /*
-Proof sketch:
+Proof sketch from CS61B:
 Assume all edges have non-negative weights.
 At start, distTo[source] = 0, which is optimal.
 After relaxing all edges from source, let vertex v1 be the vertex with
@@ -147,7 +146,7 @@ pq.erase({distance, p});
 
 2. pq里存的是顶点（及其当前最优距离），不是边
 因而 pq.erase({distTo[q], q}); 可能删除一个还没入队的顶点
-但是set对不存在的键返回0而不报错，所以没有问题
+但是set对不存在的键不报错，所以没有问题
 
 带入第一次循环：
 循环之前pq只有起点{0, s}，进入主循环就被取出删除了
