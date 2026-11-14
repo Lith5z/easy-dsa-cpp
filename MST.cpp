@@ -53,6 +53,7 @@ struct MST {
     bool spans() const { return e() == (int)edgeTo.size() - 1; }
 };
 
+// O(E logV)
 MST prim(const WeightedGraph& g, int s) {
     int v = g.v();
     std::vector<int> edgeTo(v, -1);  //-1代表无前驱
@@ -116,6 +117,7 @@ struct KruskalMST {
     bool spans() const { return (int)edges.size() == v - 1; }
 };
 
+// O(E logE)
 KruskalMST kruskal(const WeightedGraph& g) {
     int v = g.v();
     std::vector<FullEdge> mst;

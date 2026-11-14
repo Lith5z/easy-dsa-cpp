@@ -27,17 +27,18 @@
   - algorithm/expression：前缀表达式求值，转化相关
 - More/Queue：队列，循环数组、带尾指针的链表
   - More/Deque：双端队列，循环数组
-  - PriorityQueue：优先队列，数组、二叉堆实现（*这部分CS61B是在Hash后面讲的，我的实现主要参考自己课堂上的内容*）
+  - PriorityQueue：优先队列，数组、二叉堆实现
 - DisjointSet：并查集/连通集
   - More/UFS：抽取了并查集最佳的实现方法，仅头文件，给之后的MST Kruskal算法用
 - algorithm/KMP：字符串匹配的KMP算法，前缀函数、next数组
 - 树：
-  - BinaryTree：二叉树，重点遍历（*这部分CS61B也是在Hash后面讲的，同上*）
+  - BinaryTree：二叉树，重点遍历
     - BST：二叉搜索树，重点插入/删除/查询，递归写法
-  - B-tree：给定参数t的B-tree，**代码略去**
+  - B-tree：给定参数t的B-tree，**代码可以跳过**
   - 旋转平衡树：
     - Red-BlackTree：LLRB左倾红黑树，只实现插入
     - More/AVLTree：旋转平衡树，参考LLRB来实现
+  - KDTree：k-d树，处理k维数据，实现建树和nearest方法，**代码可以跳过**
 - 集合和哈希
   - More/BitSet：集合的位向量实现方法，类似vector<bool>
   - Hash：无序set/map的实现方法，哈希表
