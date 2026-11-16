@@ -39,6 +39,7 @@
     - Red-BlackTree：LLRB左倾红黑树，只实现插入
     - More/AVLTree：旋转平衡树，参考LLRB来实现
   - KDTree：k-d树，处理k维数据，实现建树和nearest方法，**代码可以跳过**
+  - Trie：字典树，插入查询，根据字符串前缀取串
 - 集合和哈希
   - More/BitSet：集合的位向量实现方法，类似vector<bool>
   - Hash：无序set/map的实现方法，哈希表
