@@ -20,14 +20,14 @@ constexpr int N = 26;
 // 不用存储节点的char是什么，因为next的index就是char
 // index of char c = c - 'a'
 struct Node {
-    bool is_word = false;
+    bool isWord = false;
     Node* next[N] = {};
 };
 
 class Trie {
 private:
-    Node* root;          // 哨兵
-    int word_count = 0;  // 不同单词数
+    Node* root;         // 哨兵
+    int wordCount = 0;  // 不同单词数
 
     // 和二叉树的析构过程相同
     void _destroy(Node* node) {
@@ -55,7 +55,7 @@ private:
     // 传引用让不同调用都是同一个res和path
     void _collect(std::string& path, std::vector<std::string>& res,
                   const Node* p) const {
-        if (p->is_word) {
+        if (p->isWord) {
             res.push_back(path);
         }
         // 遍历p的26个子树，递归
@@ -71,7 +71,7 @@ private:
     }
 
 public:
-    Trie() { root = new Node(); }
+    Trie() : root(new Node()) {}
     ~Trie() { _destroy(root); }
 
     void insert(const std::string& word) {
@@ -87,20 +87,20 @@ public:
             }
         }
         // 此时p指向最后一个字符的节点
-        if (!p->is_word) {  // 重复插入判断
-            p->is_word = true;
-            word_count++;
+        if (!p->isWord) {  // 重复插入判断
+            p->isWord = true;
+            wordCount++;
         }
     }
     bool contain(const std::string& word) const {
         const Node* p = findNode(word);
-        return p != nullptr && p->is_word;
+        return p != nullptr && p->isWord;
     }
 
     // 按照字典序，返回存储的所有字符串
     std::vector<std::string> collect() const {
         std::vector<std::string> result;
-        result.reserve(word_count);
+        result.reserve(wordCount);
         std::string path;
         _collect(path, result, root);
         return result;
@@ -119,8 +119,8 @@ public:
         return result;
     }
 
-    int size() const { return word_count; }
-    bool empty() const { return word_count == 0; }
+    int size() const { return wordCount; }
+    bool empty() const { return wordCount == 0; }
 };
 
 int main() {

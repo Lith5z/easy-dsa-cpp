@@ -22,8 +22,6 @@ push 后移已有项直到找到正确位置；pop 全部前移
 
 #include "More/Queue.h"
 
-using namespace std;
-
 // always keep min at head/front
 // push/pop 最坏O(n)
 class ArrayPriorityQueue : public Queue {
@@ -33,9 +31,7 @@ private:
     int capacity;
 
 public:
-    ArrayPriorityQueue(int siz) : size(0), capacity(siz) {
-        data = new int[siz];
-    }
+    ArrayPriorityQueue(int siz) : data(new int[siz]), size(0), capacity(siz) {}
     ~ArrayPriorityQueue() { delete[] data; }
 
     bool isEmpty() const { return size == 0; }
@@ -68,6 +64,8 @@ public:
 // push/pop 最坏O(log n)
 class HeapPriorityQueue : public Queue {
 private:
+    static constexpr int DEFAULT_CAPACITY = 10;
+
     int* data;
     int size;
     int capacity;
@@ -127,12 +125,14 @@ private:
     }
 
 public:
-    HeapPriorityQueue() : size(0), capacity(10), data(nullptr) {}
+    HeapPriorityQueue()
+        : data(new int[DEFAULT_CAPACITY]),
+          size(0),
+          capacity(DEFAULT_CAPACITY) {}
     // 使用siftDown建堆 O(n)，使用siftUp O(n logn)
-    HeapPriorityQueue(int* arr, int arr_size)
-        : size(arr_size), capacity(arr_size * 2) {
-        data = new int[arr_size * 2];
-        memcpy(data, arr, arr_size * sizeof(int));
+    HeapPriorityQueue(const int* arr, int arrSize)
+        : data(new int[arrSize * 2]), size(arrSize), capacity(arrSize * 2) {
+        memcpy(data, arr, arrSize * sizeof(int));
         // 开始调整堆的大小关系
         for (int pos = (size - 2) / 2; pos >= 0; pos--) {
             // size-1才是最后一个节点的index，取出最后一个有子女的节点

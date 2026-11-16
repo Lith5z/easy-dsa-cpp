@@ -1,12 +1,12 @@
-// 双端队列
+/*
+双端队列
 
-// 基于循环数组实现
-// 对于front和tail的操作基本是高度对称的
+基于循环数组实现
+对于front和tail的操作基本是高度对称的
+*/
 
 #include <cassert>
 #include <iostream>
-
-using namespace std;
 
 class Deque {
 private:
@@ -16,9 +16,9 @@ private:
     int capacity;
 
 public:
-    Deque(int size) : front(-1), tail(-1), size(0), capacity(size) {
+    Deque(int size)
+        : data(new int[size]), front(-1), tail(-1), size(0), capacity(size) {
         assert(size > 0);
-        data = new int[size];
     }
     ~Deque() { delete[] data; }
 
@@ -74,6 +74,8 @@ public:
 };
 
 int main() {
+    using namespace std;
+
     {
         Deque deque(4);
 

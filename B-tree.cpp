@@ -34,7 +34,7 @@ struct BTreeNode {
     std::vector<int> keys;  // 存储的元素
     std::vector<BTreeNode*> children;
 
-    explicit BTreeNode(bool is_leaf) : leaf(is_leaf) {}
+    explicit BTreeNode(bool isLeaf) : leaf(isLeaf) {}
 };
 class BTree {
 private:
@@ -50,11 +50,11 @@ private:
     // 从node作root的子树开始寻找
     bool _contain(const BTreeNode* node, int val) const {
         int index = 0;
-        int key_count = static_cast<int>(node->keys.size());
+        int keyCount = static_cast<int>(node->keys.size());
         // 在node节点的keys中寻找，keys有序
-        while (index < key_count && node->keys[index] < val) ++index;
+        while (index < keyCount && node->keys[index] < val) ++index;
 
-        if (index < key_count && node->keys[index] == val) return true;
+        if (index < keyCount && node->keys[index] == val) return true;
         if (node->leaf) return false;
         return _contain(node->children[index], val);
     }
@@ -64,15 +64,15 @@ private:
         BTreeNode* right = new BTreeNode(full->leaf);
         int middle = full->keys[t - 1];
 
-        int key_count = static_cast<int>(full->keys.size());
-        for (int i = t; i < key_count; ++i) {
+        int keyCount = static_cast<int>(full->keys.size());
+        for (int i = t; i < keyCount; ++i) {
             right->keys.push_back(full->keys[i]);
         }
         full->keys.resize(t - 1);
 
         if (!full->leaf) {
-            int child_count = static_cast<int>(full->children.size());
-            for (int i = t; i < child_count; ++i) {
+            int childCount = static_cast<int>(full->children.size());
+            for (int i = t; i < childCount; ++i) {
                 right->children.push_back(full->children[i]);
             }
             full->children.resize(t);
@@ -93,8 +93,8 @@ private:
     // node一定不是满节点
     void insertNonFull(BTreeNode* node, int val) {
         int index = 0;
-        int key_count = static_cast<int>(node->keys.size());
-        while (index < key_count && node->keys[index] < val) ++index;
+        int keyCount = static_cast<int>(node->keys.size());
+        while (index < keyCount && node->keys[index] < val) ++index;
 
         if (node->leaf) {
             node->keys.push_back(0);
@@ -114,7 +114,7 @@ private:
     }
 
 public:
-    explicit BTree(int min_degree = 2) : root(nullptr), t(min_degree) {
+    explicit BTree(int minDegree = 2) : root(nullptr), t(minDegree) {
         assert(t >= 2);
     }
     ~BTree() { destroy(root); }
@@ -132,16 +132,18 @@ public:
         }
 
         if (root->keys.size() == static_cast<size_t>(2 * t - 1)) {
-            BTreeNode* new_root = new BTreeNode(false);
-            new_root->children.push_back(root);
-            splitChild(new_root, 0);
-            root = new_root;
+            BTreeNode* newRoot = new BTreeNode(false);
+            newRoot->children.push_back(root);
+            splitChild(newRoot, 0);
+            root = newRoot;
         }
         insertNonFull(root, val);
     }
 };
 
 int main() {
+    using namespace std;
+
     BTree btree;
     for (int value : {4, 2, 6, 1, 3, 5, 7}) {
         btree.insert(value);
@@ -150,5 +152,5 @@ int main() {
     assert(btree.contain(1));
     assert(btree.contain(7));
     assert(!btree.contain(8));
-    std::cout << "B-tree insert and contain passed\n";
+    cout << "B-tree insert and contain passed\n";
 }

@@ -22,19 +22,19 @@ dfs给出前序，对于递归来说容易改成后序，对于迭代比较麻�
 // 基于栈的 DFS 迭代遍历
 // preorder：操作在继续遍历之前，这里即先访问top再考虑top的邻居
 std::vector<int> dfs(const Graph& g, int s = 0) {
-    std::stack<int> frontier_id;  // 边缘栈，又叫fringe
+    std::stack<int> frontierId;  // 边缘栈，又叫fringe
     // 因为存储的int，可以直接把int作为index，用vector<char>作为标记数组，visited[i]==0代表未访问
     // 一般来说用的是unordered_set
     std::vector<char> visited(g.v(), 0);
     std::vector<int> result;
     result.reserve(g.v());
 
-    frontier_id.push(s);
+    frontierId.push(s);
     // 开始dfs
-    while (!frontier_id.empty()) {
+    while (!frontierId.empty()) {
         // 取出栈顶的顶点，根据标记决定要不要访问
-        int cur = frontier_id.top();
-        frontier_id.pop();
+        int cur = frontierId.top();
+        frontierId.pop();
         if (visited[cur] == 0) {  // 没访问过，访问并标记
             result.push_back(cur);
             visited[cur] = 1;
@@ -43,7 +43,7 @@ std::vector<int> dfs(const Graph& g, int s = 0) {
         // 注意匹配返回类型，避免拷贝vector
         const std::vector<int>& successors = g.getNeighbors(cur);
         for (auto it = successors.rbegin(); it != successors.rend(); ++it) {
-            if (!visited[*it]) frontier_id.push(*it);
+            if (!visited[*it]) frontierId.push(*it);
         }
     }
     return result;
@@ -54,23 +54,23 @@ std::vector<int> dfs(const Graph& g, int s = 0) {
 // bfs遍历的迭代实现，首先把栈换成队列
 // 标记集合的语义也不一样，这里的意思是有没有发现过
 std::vector<int> bfs(const Graph& g, int s = 0) {
-    std::queue<int> frontier_id;  // 边缘
+    std::queue<int> frontierId;  // 边缘
     std::vector<char> discovered(g.v(), 0);
     std::vector<int> result;
     result.reserve(g.v());
 
     discovered[s] = 1;
-    frontier_id.push(s);
-    while (!frontier_id.empty()) {
-        int cur = frontier_id.front();
-        frontier_id.pop();
+    frontierId.push(s);
+    while (!frontierId.empty()) {
+        int cur = frontierId.front();
+        frontierId.pop();
         result.push_back(cur);
 
         const std::vector<int>& successors = g.getNeighbors(cur);
         for (int i : successors) {
             // 只有未发现的节点才能入队，避免重复
             if (discovered[i] == 0) {
-                frontier_id.push(i);
+                frontierId.push(i);
                 discovered[i] = 1;
             }
         }
@@ -80,25 +80,25 @@ std::vector<int> bfs(const Graph& g, int s = 0) {
 
 // dfs的递归实现，需要一个帮助方法
 // 因为visited和result对于不同调用都是一样的，所以需要传递该参数的引用
-void dfs_recursion_helper(const Graph& g, int cur, std::vector<char>& visited,
-                          std::vector<int>& result) {
+void dfsRecursionHelper(const Graph& g, int cur, std::vector<char>& visited,
+                        std::vector<int>& result) {
     visited[cur] = 1;
 
     result.push_back(cur);
     // preorder：先访问当前顶点，再访问邻居；后序交换即可
     for (int next : g.getNeighbors(cur)) {
         if (visited[next] == 0) {
-            dfs_recursion_helper(g, next, visited, result);
+            dfsRecursionHelper(g, next, visited, result);
         }
     }
 }
 // dfs的递归实现，preorder
-std::vector<int> dfs_recursion(const Graph& g, int s = 0) {
+std::vector<int> dfsRecursion(const Graph& g, int s = 0) {
     std::vector<char> visited(g.v(), 0);
     std::vector<int> result;
     result.reserve(g.v());
 
-    dfs_recursion_helper(g, s, visited, result);
+    dfsRecursionHelper(g, s, visited, result);
     return result;
 }
 
@@ -107,13 +107,13 @@ std::vector<int> dfs_recursion(const Graph& g, int s = 0) {
 
 1. 因为迭代方法使用了栈，递归版本
 for (int next : g.getNeighbors(cur)) {
-    dfs_recursion_helper(g, next, ...);
+    dfsRecursionHelper(g, next, ...);
 }
 是直接按照邻接表中给出的顺序访问
 
 而迭代版本如果顺序入栈
 for (int next : successors) {
-    frontier_id.push(next);
+    frontierId.push(next);
 }
 因为dfs是先放入栈再访问，所以栈的LIFO使得最后压入的邻居会最先访问，这样就和递归版本不一样了
 
@@ -136,21 +136,21 @@ remarks
 你可以试试按着bfs的标记时机写一个dfs，虽然也不重复入栈了，但是结果是错误的，得到03214，可是3后面应该是1
 
 std::vector<int> dfs(const Graph& g, int s = 0) {
-    std::stack<int> frontier_id;
+    std::stack<int> frontierId;
     std::vector<char> visited(g.v(), 0);
     std::vector<int> result;
     result.reserve(g.v());
 
     visited[s] = 1;  // here
-    frontier_id.push(s);
-    while (!frontier_id.empty()) {
-        int cur = frontier_id.top();
-        frontier_id.pop();
+    frontierId.push(s);
+    while (!frontierId.empty()) {
+        int cur = frontierId.top();
+        frontierId.pop();
         result.push_back(cur);
         const std::vector<int>& successors = g.getNeighbors(cur);
         for (int i : successors) {
             if (visited[i] == 0) {    // here
-                frontier_id.push(i);
+                frontierId.push(i);
                 visited[i] = 1;
             }
         }
@@ -169,12 +169,14 @@ bfs并不会有这个问题，123入队，123出队
 毕竟搜索不关心这些细节顺序上的问题，CS188用的就是这种写法
 
 remarks
-这其实是frontier_id的不同
+这其实是frontierId的不同
 bfs按照层序访问，队列中是该层（正在访问）和下一层的节点（距离+1）
 dfs一直走到底，栈中是过程中所有遇到的下一个节点
 */
 
 int main() {
+    using namespace std;
+
     Graph g(5, true);
     g.addEdge(0, 1);
     g.addEdge(0, 2);
@@ -182,11 +184,11 @@ int main() {
     g.addEdge(3, 1);
     g.addEdge(1, 4);
 
-    for (int i : dfs_recursion(g)) {
-        std::cout << i << '\n';
+    for (int i : dfsRecursion(g)) {
+        cout << i << '\n';
     }
-    std::cout << '\n';
+    cout << '\n';
     for (int i : dfs(g)) {
-        std::cout << i << '\n';
+        cout << i << '\n';
     }
 }

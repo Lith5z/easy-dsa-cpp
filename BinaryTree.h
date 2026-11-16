@@ -1,6 +1,6 @@
 #pragma once
 
-// 二叉树的通用部分，给BST复用
+/* 二叉树的通用部分，给BST复用 */
 
 #include <algorithm>
 #include <iostream>
@@ -13,8 +13,8 @@ struct Node {
     Node* right;
 
     Node() : data(0), left(nullptr), right(nullptr) {}
-    Node(int val, Node* p_left, Node* p_right)
-        : data(val), left(p_left), right(p_right) {}
+    Node(int val, Node* pLeft, Node* pRight)
+        : data(val), left(pLeft), right(pRight) {}
 };
 
 class BinaryTree {
@@ -26,14 +26,14 @@ private:
         delete node;
     }
 
-    void _BFprint(Node* node) const {
+    void _BFprint(const Node* node) const {
         if (node == nullptr) return;
 
-        std::queue<Node*> frontier;
+        std::queue<const Node*> frontier;
         frontier.push(node);
         while (!frontier.empty()) {
             // 下面三行的顺序不严格固定，只要先取出top再pop效果都是一样的
-            Node* p = frontier.front();
+            const Node* p = frontier.front();
             std::cout << p->data << " ";
             frontier.pop();
             if (p->left != nullptr) frontier.push(p->left);
@@ -42,7 +42,7 @@ private:
     }
 
     // preorder: root -> left -> right
-    void _DFprint_recursion(Node* node) const {
+    void _DFprint_recursion(const Node* node) const {
         // 广度优先时，需要在层间遍历，但是层间并没有指针连接
         // 深度优先，遍历顺序符合树的递归性，递归实现很简单
         if (node == nullptr) return;
@@ -52,13 +52,13 @@ private:
         // 中序和后序改上面三个的顺序就行
     }
     // preorder: root -> left -> right
-    void _DFprint_preorder_iterative(Node* node) const {
+    void _DFprint_preorder_iterative(const Node* node) const {
         if (node == nullptr) return;
 
-        std::stack<Node*> frontier;
+        std::stack<const Node*> frontier;
         frontier.push(node);
         while (!frontier.empty()) {
-            Node* p = frontier.top();
+            const Node* p = frontier.top();
             // 访问root
             std::cout << p->data << " ";
             frontier.pop();
@@ -68,9 +68,9 @@ private:
         }
     }
     // inorder: left -> root -> right
-    void _DFprint_inorder_iterative(Node* node) const {
-        std::stack<Node*> frontier;
-        Node* p = node;
+    void _DFprint_inorder_iterative(const Node* node) const {
+        std::stack<const Node*> frontier;
+        const Node* p = node;
 
         while (p != nullptr || !frontier.empty()) {
             // 先把当前节点及其所有左节点入栈
@@ -91,12 +91,12 @@ private:
         }
     }
     // postorder: left -> right -> root
-    void _DFprint_postorder_iterative(Node* node) const {
+    void _DFprint_postorder_iterative(const Node* node) const {
         if (node == nullptr) return;
 
-        std::stack<Node*> frontier;
-        Node* p = node;
-        Node* lastVisited = nullptr;
+        std::stack<const Node*> frontier;
+        const Node* p = node;
+        const Node* lastVisited = nullptr;
 
         while (p != nullptr || !frontier.empty()) {
             // 先沿左子树向下
@@ -105,7 +105,7 @@ private:
                 p = p->left;
             }
 
-            Node* top = frontier.top();
+            const Node* top = frontier.top();
 
             // 如果存在未访问的右子树，先访问右子树，继续外层循环
             if (top->right != nullptr && lastVisited != top->right) {
@@ -128,7 +128,7 @@ public:
     virtual ~BinaryTree() { destroy(root); }
 
     // time: O(n)
-    int getHeight(Node* node) const {
+    int getHeight(const Node* node) const {
         if (node == nullptr) return -1;  // let height of leaf node = 0
         int leftHeight = getHeight(node->left);
         int rightHeight = getHeight(node->right);

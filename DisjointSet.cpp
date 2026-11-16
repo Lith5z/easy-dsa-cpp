@@ -1,11 +1,11 @@
-// a disjoint set virtual class (interface) and its different implements
-// 也就是并查集UFSet，root方法即find，connect方法即union
-// 其他区别是，这个类关注元素的操作，并查集关注树的操作
+/*
+a disjoint set virtual class (interface) and its different implements
+也就是并查集UFSet，root方法即find，connect方法即union
+其他区别是，这个类关注元素的操作，并查集关注树的操作
+*/
 
 #include <cassert>
 #include <iostream>
-
-using namespace std;
 
 // size N -> [0] .. [N-1]
 class DisjointSet {
@@ -19,16 +19,15 @@ public:
 
 // 一种基于数组的实现，每个数都有自己的识别id
 // 如果p q连接就把p q
-// （以及所有和p连接的数，也就是id与p_id相同的）的id设置为一致的
+// （以及所有和p连接的数，也就是id与pId相同的）的id设置为一致的
 class QuickCheckDS : public DisjointSet {
 private:
     int* id;
     int size;
 
 public:
-    QuickCheckDS(int N) : size(N) {
-        id = new int[N];
-        for (int i = 0; i < N; i++) {
+    QuickCheckDS(int n) : id(new int[n]), size(n) {
+        for (int i = 0; i < n; i++) {
             id[i] = i;
         }
     }
@@ -36,10 +35,10 @@ public:
 
     // connect: O(N)
     void connect(int p, int q) override {
-        int p_id = id[p], q_id = id[q];
+        int pId = id[p], qId = id[q];
         for (int i = 0; i < size; i++) {
-            if (id[i] == p_id) {
-                id[i] = q_id;
+            if (id[i] == pId) {
+                id[i] = qId;
             }
         }
     }
@@ -65,9 +64,8 @@ private:
     }
 
 public:
-    QuickConnectDS(int N) : size(N) {
-        parent = new int[N];
-        for (int i = 0; i < N; i++) {
+    QuickConnectDS(int n) : parent(new int[n]), size(n) {
+        for (int i = 0; i < n; i++) {
             parent[i] = -1;  // -1代表树的根部，一开始所有节点都是独立无连接的
         }
     }
@@ -75,15 +73,15 @@ public:
 
     // connect: O(n)
     void connect(int p, int q) override {
-        int p_root = root(p);
-        int q_root = root(q);
+        int pRoot = root(p);
+        int qRoot = root(q);
 
         // 已经属于同一棵树时，不需要重复连接
-        if (p_root == q_root) {
+        if (pRoot == qRoot) {
             return;
         }
 
-        parent[p_root] = q_root;  // 连接到目标的根部，尽可能减少树的深度
+        parent[pRoot] = qRoot;  // 连接到目标的根部，尽可能减少树的深度
     }
     // check: O(n)
     bool isConnected(int p, int q) override { return root(p) == root(q); }
@@ -105,9 +103,8 @@ protected:
     }
 
 public:
-    WeightedQuickConnectDS(int N) {
-        parent = new int[N];
-        for (int i = 0; i < N; i++) {
+    WeightedQuickConnectDS(int n) : parent(new int[n]) {
+        for (int i = 0; i < n; i++) {
             parent[i] = -1;
         }
     }
@@ -115,24 +112,24 @@ public:
 
     // connect: O(log n)
     void connect(int p, int q) override {
-        int p_root = root(p);
-        int q_root = root(q);
+        int pRoot = root(p);
+        int qRoot = root(q);
 
         // 已经属于同一棵树时，不需要重复连接或更新权重
-        if (p_root == q_root) {
+        if (pRoot == qRoot) {
             return;
         }
 
         // 根节点储存负的树大小，单个节点的parent是-1，代表这个树有1个节点
         // 数值越小，表示树的权重越大
         // Always link root of smaller tree to larger tree
-        if (parent[p_root] > parent[q_root]) {
-            parent[q_root] += parent[p_root];
-            parent[p_root] = q_root;
+        if (parent[pRoot] > parent[qRoot]) {
+            parent[qRoot] += parent[pRoot];
+            parent[pRoot] = qRoot;
         }
         else {
-            parent[p_root] += parent[q_root];
-            parent[q_root] = p_root;
+            parent[pRoot] += parent[qRoot];
+            parent[qRoot] = pRoot;
         }
     }
     // check: O(log n)
@@ -168,6 +165,8 @@ public:
 };
 
 int main() {
+    using namespace std;
+
     const int N = 8;
     DisjointSet* sets[] = {new QuickCheckDS(N), new QuickConnectDS(N),
                            new WeightedQuickConnectDS(N),

@@ -1,4 +1,4 @@
-// an array list
+/* an array list */
 
 #include <cassert>
 #include <cstring>
@@ -13,14 +13,11 @@ private:
     int capacity;
 
 public:
-    AList() : size(0), capacity(INIT) { data = new int[INIT]; }
-    AList(int first_val) : size(1), capacity(INIT) {
-        data = new int[INIT];
-        data[0] = first_val;
+    AList() : data(new int[INIT]), size(0), capacity(INIT) {}
+    AList(int firstVal) : data(new int[INIT]), size(1), capacity(INIT) {
+        data[0] = firstVal;
     }
     ~AList() { delete[] data; }
-    AList(const AList& other) = delete;
-    AList& operator=(const AList&) = delete;
 
     void addLast(int val) {
         if (size == capacity) {
@@ -30,14 +27,14 @@ public:
         size++;
     }
     void removeLast() { size--; }
-    void resize(int new_capacity) {
-        assert(new_capacity >= size);
+    void resize(int newCapacity) {
+        assert(newCapacity >= size);
 
-        int* new_data = new int[new_capacity];
-        memcpy(new_data, data, size * sizeof(int));
+        int* newData = new int[newCapacity];
+        memcpy(newData, data, size * sizeof(int));
         delete[] data;
-        data = new_data;
-        capacity = new_capacity;
+        data = newData;
+        capacity = newCapacity;
     }
 
     void print() const {
@@ -52,18 +49,20 @@ public:
 };
 
 int main() {
+    using namespace std;
+
     AList a;
     a.addLast(1);
-    std::cout << a.getCapacity() << std::endl;
+    cout << a.getCapacity() << endl;
     a.addLast(2);
-    std::cout << a.getCapacity() << std::endl;
+    cout << a.getCapacity() << endl;
     a.addLast(3);
-    std::cout << a.getCapacity() << std::endl;
+    cout << a.getCapacity() << endl;
     a.addLast(4);
-    std::cout << a.getCapacity() << std::endl;
+    cout << a.getCapacity() << endl;
     a.addLast(5);
-    std::cout << a.getCapacity() << std::endl;
+    cout << a.getCapacity() << endl;
     a.addLast(6);
-    std::cout << a.getCapacity() << std::endl;
+    cout << a.getCapacity() << endl;
     a.print();
 }

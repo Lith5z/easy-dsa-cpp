@@ -1,6 +1,6 @@
 #pragma once
 
-// add and remove element in the top
+/* add and remove element in the top */
 class Stack {
 public:
     virtual ~Stack() = default;

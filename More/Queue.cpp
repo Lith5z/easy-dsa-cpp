@@ -1,22 +1,22 @@
-// array and list based queue
+/*
+array and list based queue
 
-// 基于数组实现，需要用头尾两个指针处理头部删除、尾部插入
-// 最简单的方法是线性的，但一旦头部删除了元素即front++，数组开头的空间就浪费了
-// 故更好的方法是循环数组队列，允许tail在抵达数组结尾的时候回到数组开头
-// 这样，基本操作的时间复杂度都是O(1)，但是空间复杂度是O(n)
+基于数组实现，需要用头尾两个指针处理头部删除、尾部插入
+最简单的方法是线性的，但一旦头部删除了元素即front++，数组开头的空间就浪费了
+故更好的方法是循环数组队列，允许tail在抵达数组结尾的时候回到数组开头
+这样，基本操作的时间复杂度都是O(1)，但是空间复杂度是O(n)
 
-// 第二类的实现是基于链表，但是如果只使用一个head指针，访问另一端开销是O(n)
-// 因而需要持有头尾两个节点的指针
+第二类的实现是基于链表，但是如果只使用一个head指针，访问另一端开销是O(n)
+因而需要持有头尾两个节点的指针
 
-// 国内的教材里一般用rear代替tail，而且指向结尾元素的下一位
-// 我这里指向结尾元素本身，双端队列的头尾操作就统一了
+国内的教材里一般用rear代替tail，而且指向结尾元素的下一位
+我这里指向结尾元素本身，双端队列的头尾操作就统一了
+*/
 
 #include "Queue.h"
 
 #include <cassert>
 #include <iostream>
-
-using namespace std;
 
 // e.g. [] [(front)2] [3] [6] [(tail)8] [next push] []
 class LinearArrayQueue : public Queue {
@@ -27,9 +27,9 @@ private:
     int capacity;
 
 public:
-    LinearArrayQueue(int size) : front(-1), tail(-1), capacity(size) {
+    LinearArrayQueue(int size)
+        : data(new int[size]), front(-1), tail(-1), capacity(size) {
         assert(size > 0);
-        data = new int[size];
     }
     ~LinearArrayQueue() { delete[] data; }
 
@@ -71,9 +71,9 @@ private:
     int capacity;
 
 public:
-    CircularArrayQueue(int size) : front(-1), tail(-1), capacity(size) {
+    CircularArrayQueue(int size)
+        : data(new int[size]), front(-1), tail(-1), capacity(size) {
         assert(size > 0);
-        data = new int[size];
     }
     ~CircularArrayQueue() { delete[] data; }
 
@@ -182,6 +182,8 @@ void testQueue(Queue& queue) {
 }
 
 int main() {
+    using namespace std;
+
     LinearArrayQueue linearQueue(3);
     CircularArrayQueue circularQueue(3);
     ListQueue listQueue;

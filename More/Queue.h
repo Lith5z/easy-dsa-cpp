@@ -1,6 +1,6 @@
 #pragma once
 
-// add new element in tail, delete in front
+/* add new element in tail, delete in front */
 class Queue {
 public:
     virtual ~Queue() = default;

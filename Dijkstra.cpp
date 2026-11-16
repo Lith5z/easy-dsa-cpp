@@ -103,6 +103,8 @@ Can use induction to prove that this holds for all vertices after dequeuing.
 */
 
 int main() {
+    using namespace std;
+
     WeightedGraph g(7, false);
 
     g.addEdge(0, 1, 2);
@@ -119,14 +121,14 @@ int main() {
     g.addEdge(5, 6, 1);
 
     const ShortestPath path = dijkstra(g, 0);
-    std::cout << "Given start: " << path.root << '\n';
-    std::cout << "Path from [0] to [3]: ";
+    cout << "Given start: " << path.root << '\n';
+    cout << "Path from [0] to [3]: ";
     for (int i : path.pathTo(3)) {
-        std::cout << i << ' ';
+        cout << i << ' ';
     }
-    std::cout << '\n';
-    std::cout << "Distance from [0] to [3]: ";
-    std::cout << path.distTo[3] << '\n';
+    cout << '\n';
+    cout << "Distance from [0] to [3]: ";
+    cout << path.distTo[3] << '\n';
 }
 
 /*

@@ -155,6 +155,8 @@ Prim是从起点s开始生长的，所以只能完成图中含有s的分量的ms
 */
 
 int main() {
+    using namespace std;
+
     WeightedGraph g(7, false);  // 无向图
 
     g.addEdge(0, 1, 2);
@@ -170,17 +172,17 @@ int main() {
     g.addEdge(4, 6, 3);
     g.addEdge(5, 6, 1);
 
-    std::cout << "Using prim algorithm:\n";
+    cout << "Using prim algorithm:\n";
     const MST mst = prim(g, 0);
-    std::cout << "Given start: " << mst.root << '\n';
-    std::cout << "Num of edges in MST: " << mst.e() << '\n';
-    std::cout << "Is spanning: " << mst.spans() << '\n';
-    std::cout << "Total distance: " << mst.weight() << '\n';
+    cout << "Given start: " << mst.root << '\n';
+    cout << "Num of edges in MST: " << mst.e() << '\n';
+    cout << "Is spanning: " << mst.spans() << '\n';
+    cout << "Total distance: " << mst.weight() << '\n';
 
-    std::cout << "\nUsing kruskal algorithm:\n";
+    cout << "\nUsing kruskal algorithm:\n";
     const KruskalMST mst2 = kruskal(g);
-    std::cout << "Kruskal doesn't need a start\n";
-    std::cout << "Num of edges in MST: " << mst2.e() << '\n';
-    std::cout << "Is spanning: " << mst2.spans() << '\n';
-    std::cout << "Total distance: " << mst2.weight() << '\n';
+    cout << "Kruskal doesn't need a start\n";
+    cout << "Num of edges in MST: " << mst2.e() << '\n';
+    cout << "Is spanning: " << mst2.spans() << '\n';
+    cout << "Total distance: " << mst2.weight() << '\n';
 }

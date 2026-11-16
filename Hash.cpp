@@ -25,11 +25,9 @@ resize时所有元素的下标都会变，必须重新散列；但只需要移�
 #include <utility>
 #include <vector>
 
-using namespace std;
-
 // 和java的String.hashCode一样是31进制多项式哈希：h = h * 31 + c
 // 为了避免负数，用unsigned而不是int
-unsigned int hashcode(const string& s) {
+unsigned int hashcode(const std::string& s) {
     unsigned int hash = 0;
     for (char c : s) {
         hash = hash * 31u + static_cast<unsigned char>(c);
@@ -39,55 +37,56 @@ unsigned int hashcode(const string& s) {
 
 class StringSet {
 private:
-    int size;        // 当前元素个数
-    int bucket_num;  // 桶的数量，即buckets数组的长度
-    vector<string>* buckets;
+    int size;       // 当前元素个数
+    int bucketNum;  // 桶的数量，即buckets数组的长度
+    std::vector<std::string>* buckets;
 
     // 桶的数量改变后，所有元素都要重新计算下标
-    void resize(int new_bucket_num) {
-        vector<string>* new_buckets = new vector<string>[new_bucket_num];
-        for (int i = 0; i < bucket_num; i++) {
+    void resize(int newBucketNum) {
+        std::vector<std::string>* newBuckets =
+            new std::vector<std::string>[newBucketNum];
+        for (int i = 0; i < bucketNum; i++) {
             // 这里不能写const string&，否则std::move会退化成拷贝
-            for (string& s : buckets[i]) {
-                new_buckets[hashcode(s) % new_bucket_num].push_back(
-                    std::move(s));
+            for (std::string& s : buckets[i]) {
+                newBuckets[hashcode(s) % newBucketNum].push_back(std::move(s));
             }
         }
         delete[] buckets;
-        buckets = new_buckets;
-        bucket_num = new_bucket_num;
+        buckets = newBuckets;
+        bucketNum = newBucketNum;
     }
 
 public:
-    StringSet(int initial_bucket_num = 8)
-        : size(0), bucket_num(initial_bucket_num) {
-        assert(bucket_num > 0);
-        buckets = new vector<string>[bucket_num];
+    StringSet(int initialBucketNum = 8)
+        : size(0),
+          bucketNum(initialBucketNum),
+          buckets(new std::vector<std::string>[initialBucketNum]) {
+        assert(bucketNum > 0);
     }
     ~StringSet() { delete[] buckets; }
 
-    void insert(const string& s) {
-        int index = hashcode(s) % bucket_num;
+    void insert(const std::string& s) {
+        int index = hashcode(s) % bucketNum;
         // 桶中可能有多个元素，先检查是否已经存在
-        for (const string& x : buckets[index]) {
+        for (const std::string& x : buckets[index]) {
             if (x == s) return;
         }
         buckets[index].push_back(s);
         size++;
 
-        // load ratio = size / bucket_num，超过1就扩容
-        if (size > bucket_num) resize(bucket_num * 2);
+        // load ratio = size / bucketNum，超过1就扩容
+        if (size > bucketNum) resize(bucketNum * 2);
     }
-    bool contain(const string& s) const {
-        int index = hashcode(s) % bucket_num;
-        for (const string& x : buckets[index]) {
+    bool contain(const std::string& s) const {
+        int index = hashcode(s) % bucketNum;
+        for (const std::string& x : buckets[index]) {
             if (x == s) return true;
         }
         return false;
     }
-    void remove(const string& s) {
-        int index = hashcode(s) % bucket_num;
-        vector<string>& bucket = buckets[index];
+    void remove(const std::string& s) {
+        int index = hashcode(s) % bucketNum;
+        std::vector<std::string>& bucket = buckets[index];
         for (int i = 0; i < static_cast<int>(bucket.size()); i++) {
             if (bucket[i] == s) {
                 bucket.erase(bucket.begin() + i);

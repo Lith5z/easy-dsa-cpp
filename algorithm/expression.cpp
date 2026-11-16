@@ -1,5 +1,7 @@
-// 前缀、后缀表达式求值，中缀转换为后缀
-// 表达式约定为每个数/操作符之间有一个空格，括号仅有(，表达式合法，不使用负数
+/*
+前缀、后缀表达式求值，中缀转换为后缀
+表达式约定为每个数/操作符之间有一个空格，括号仅有(，表达式合法，不使用负数
+*/
 
 #include <cassert>
 #include <cctype>
@@ -26,7 +28,7 @@ constexpr int operate(char op, int left, int right) {
     }
 }
 
-int cal_postfix(const std::string& s) {
+int calPostfix(const std::string& s) {
     std::istringstream input(s);
     std::stack<int> values;
     std::string token;
@@ -53,7 +55,7 @@ int cal_postfix(const std::string& s) {
     return values.top();
 }
 
-int cal_prefix(const std::string& s) {
+int calPrefix(const std::string& s) {
     // 先按 token
     // 分割成vector，再逆序，直接翻转字符串会导致12->21这样多位数的错误
     std::istringstream input(s);
@@ -98,7 +100,7 @@ constexpr int precedence(char op) {
             return -1;
     }
 }
-std::string infix_to_postfix(const std::string& s) {
+std::string infixToPostfix(const std::string& s) {
     std::istringstream input(s);
     std::string res;
     std::stack<char> ops;
@@ -143,22 +145,24 @@ std::string infix_to_postfix(const std::string& s) {
 }
 
 int main() {
-    assert(cal_prefix("+ 12 3") == 15);
-    assert(cal_prefix("- * 12 3 4") == 32);
-    assert(cal_prefix("/ + 20 4 3") == 8);
+    using namespace std;
 
-    assert(cal_postfix("12 3 +") == 15);
-    assert(cal_postfix("12 3 * 4 -") == 32);
-    assert(cal_postfix("20 4 + 3 /") == 8);
+    assert(calPrefix("+ 12 3") == 15);
+    assert(calPrefix("- * 12 3 4") == 32);
+    assert(calPrefix("/ + 20 4 3") == 8);
 
-    std::string postfix = infix_to_postfix("3 + 4 * 2");
+    assert(calPostfix("12 3 +") == 15);
+    assert(calPostfix("12 3 * 4 -") == 32);
+    assert(calPostfix("20 4 + 3 /") == 8);
+
+    string postfix = infixToPostfix("3 + 4 * 2");
     assert(postfix == "3 4 2 * + ");
-    assert(cal_postfix(postfix) == 11);
+    assert(calPostfix(postfix) == 11);
 
-    postfix = infix_to_postfix("( 3 + 4 ) * 2 - 8 / 4");
+    postfix = infixToPostfix("( 3 + 4 ) * 2 - 8 / 4");
     assert(postfix == "3 4 + 2 * 8 4 / - ");
-    assert(cal_postfix(postfix) == 12);
+    assert(calPostfix(postfix) == 12);
 
-    std::cout << "All expression tests passed.\n";
+    cout << "All expression tests passed.\n";
     return 0;
 }

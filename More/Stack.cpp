@@ -1,12 +1,10 @@
-// an array and list based stack
+/* an array and list based stack */
 
 #include "Stack.h"
 
 #include <cassert>
 #include <cstring>
 #include <iostream>
-
-using namespace std;
 
 // top point to the current top element
 // e.g. top = -1 -> empty, push to the [top+1]
@@ -16,19 +14,17 @@ private:
     int capacity;
     int* data;
 
-    void resize(int new_size) {
-        int* new_data = new int[new_size];
-        memcpy(new_data, data, (top + 1) * sizeof(int));
-        delete data;
-        data = new_data;
-        capacity = new_size;
+    void resize(int newSize) {
+        int* newData = new int[newSize];
+        memcpy(newData, data, (top + 1) * sizeof(int));
+        delete[] data;
+        data = newData;
+        capacity = newSize;
     }
 
 public:
-    ArrayStack(int size) : top(-1) {
+    ArrayStack(int size) : top(-1), capacity(size), data(new int[size]) {
         assert(size > 0);
-        capacity = size;
-        data = new int[size];
     }
     ~ArrayStack() { delete[] data; }
 

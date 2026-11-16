@@ -1,9 +1,11 @@
-// a singly linked list
+/*
+a singly linked list
 
-// 单链表在add/remove时要分别处理空表与非空的情况，因为当列表为空时，访问first->next是非法的
-// 下面用的是表头带哨兵节点sentinel的方法，逻辑上的空表实际也自带sentinel节点，就不用专门写空表的if
-// 插入时：sentinel作为哨兵节点也存在，保证sentinel->next合法
-// 删除时：保证前驱指针prev永远非空
+单链表在add/remove时要分别处理空表与非空的情况，因为当列表为空时，访问first->next是非法的
+下面用的是表头带哨兵节点sentinel的方法，逻辑上的空表实际也自带sentinel节点，就不用专门写空表的if
+插入时：sentinel作为哨兵节点也存在，保证sentinel->next合法
+删除时：保证前驱指针prev永远非空
+*/
 
 #include <iostream>
 
@@ -24,20 +26,17 @@ private:
     // 返回翻转结果的新head
     Node* reverse(Node* head) {
         if (head == nullptr || head->next == nullptr) return head;
-        Node* new_head = reverse(head->next);
+        Node* newHead = reverse(head->next);
         head->next->next = head;
         head->next = nullptr;  // 旧head是翻转后的tail
-        return new_head;  // 翻转以head->next和head为开头的链表，新头都是原本的tail
+        return newHead;  // 翻转以head->next和head为开头的链表，新头都是原本的tail
     }
 
 public:
-    SLList(int first_val) : size(1) {
-        sentinel = new Node();  // 表头哨兵节点
-        sentinel->next = new Node(first_val, nullptr);
+    SLList(int firstVal) : sentinel(new Node()), size(1) {  // 表头哨兵节点
+        sentinel->next = new Node(firstVal, nullptr);
     }
-    SLList() : size(0) {
-        sentinel = new Node();  // 表头哨兵节点
-    }
+    SLList() : sentinel(new Node()), size(0) {}  // 表头哨兵节点
     ~SLList() {
         Node* p = sentinel->next;
         while (p != nullptr) {
@@ -91,7 +90,7 @@ public:
     }
 
     // 原地翻转
-    void reverse_iteration() {
+    void reverseIteration() {
         Node *cur = sentinel->next, *nxt = nullptr, *prev = nullptr;
         while (cur != nullptr) {
             nxt = cur->next;   // 保存下一个
@@ -102,7 +101,7 @@ public:
         sentinel->next = prev;
     }
     // 原地翻转
-    void reverse_recursion() { sentinel->next = reverse(sentinel->next); }
+    void reverseRecursion() { sentinel->next = reverse(sentinel->next); }
     int getFirst() const {
         return sentinel->next->val;  // 注意：空表时空指针解引用
     }
@@ -110,6 +109,8 @@ public:
 };
 
 int main() {
+    using namespace std;
+
     SLList a = SLList(123);
     a.addLast(666);
     a.addLast(888);
@@ -117,6 +118,6 @@ int main() {
     a.print();
 
     // return 0;
-    a.reverse_recursion();
+    a.reverseRecursion();
     a.print();
 }

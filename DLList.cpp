@@ -1,8 +1,10 @@
-// a doubly linked list
+/*
+a doubly linked list
 
-// 双向链表的最佳实现，表头有一个哨兵节点，整个链表形成一个循环
-// 空表时，哨兵的prev和next都指向自身
-// 这样的好处是，避免了对空表情况的单独讨论，而且对称功能的代码也类似（比如addFirst和addLast）
+双向链表的最佳实现，表头有一个哨兵节点，整个链表形成一个循环
+空表时，哨兵的prev和next都指向自身
+这样的好处是，避免了对空表情况的单独讨论，而且对称功能的代码也类似（比如addFirst和addLast）
+*/
 
 #include <cassert>
 #include <iostream>
@@ -22,14 +24,12 @@ private:
     Node* sentinel;
 
 public:
-    DLList() : size(0) {
-        sentinel = new Node();
+    DLList() : size(0), sentinel(new Node()) {
         sentinel->next = sentinel;
         sentinel->prev = sentinel;
     }
-    DLList(int first_val) : size(1) {
-        sentinel = new Node();
-        Node* first = new Node(first_val, sentinel, sentinel);
+    DLList(int firstVal) : size(1), sentinel(new Node()) {
+        Node* first = new Node(firstVal, sentinel, sentinel);
         sentinel->next = first;
         sentinel->prev = first;
     }
@@ -43,9 +43,6 @@ public:
         }
         delete sentinel;
     }
-    // 禁止拷贝：链表拥有节点资源，浅拷贝会导致 double free
-    DLList(const DLList&) = delete;
-    DLList& operator=(const DLList&) = delete;
     void addFirst(int val) {
         Node* p = sentinel->next;
         Node* add = new Node(val, p, sentinel);
@@ -112,6 +109,8 @@ public:
 };
 
 int main() {
+    using namespace std;
+
     {
         DLList list;
         list.addLast(10);
@@ -153,6 +152,6 @@ int main() {
         assert(list.getLast() == 42);
     }
 
-    std::cout << "All DLList remove tests passed." << '\n';
+    cout << "All DLList remove tests passed." << '\n';
     return 0;
 }

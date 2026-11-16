@@ -30,22 +30,22 @@ public:
     }
 
     void connect(int p, int q) {
-        int p_root = root(p);
-        int q_root = root(q);
+        int pRoot = root(p);
+        int qRoot = root(q);
 
         // 已经连接
-        if (p_root == q_root) {
+        if (pRoot == qRoot) {
             return;
         }
 
         // Always link root of smaller tree to larger tree
-        if (parent[p_root] > parent[q_root]) {
-            parent[q_root] += parent[p_root];
-            parent[p_root] = q_root;
+        if (parent[pRoot] > parent[qRoot]) {
+            parent[qRoot] += parent[pRoot];
+            parent[pRoot] = qRoot;
         }
         else {
-            parent[p_root] += parent[q_root];
-            parent[q_root] = p_root;
+            parent[pRoot] += parent[qRoot];
+            parent[qRoot] = pRoot;
         }
     }
     bool isConnected(int p, int q) { return root(p) == root(q); }

@@ -66,7 +66,8 @@ private:
     }
 
     // 返回子树中离goal最近的点，best是进入这棵子树前已知的最优点
-    Point* _nearest(Node* node, const Point& goal, int depth, Point* best) {
+    Point* _nearest(Node* node, const Point& goal, int depth,
+                    Point* best) const {
         if (node == nullptr) return best;
 
         if (best == nullptr || dist2(node->p, goal) < dist2(*best, goal))
@@ -98,7 +99,7 @@ public:
         root = build(data, 0, static_cast<int>(data.size()) - 1, 1);
     }
 
-    Point nearest(const Point& goal) {
+    Point nearest(const Point& goal) const {
         assert(root != nullptr);
         return *_nearest(root, goal, 1, nullptr);
     }

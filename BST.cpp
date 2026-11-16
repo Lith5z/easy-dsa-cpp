@@ -123,11 +123,13 @@ public:
 };
 
 int main() {
+    using namespace std;
+
     BST bst;
     for (int value : {4, 2, 6, 1, 3, 5, 7}) {
         bst.insert(value);
     }
 
     bst.DFprintIterativeInorder();
-    std::cout << std::endl;
+    cout << endl;
 }
