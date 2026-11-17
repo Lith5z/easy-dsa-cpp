@@ -17,6 +17,8 @@
 
 ## 顺序
 
+`More/`和`algorithm/`下的文件不是CS61B的课堂内容
+
 - 链表：
   - SLList：单向链表，带哨兵节点的实现
   - DLList：双向链表，哨兵+循环的实现
@@ -27,9 +29,9 @@
   - More/Deque：双端队列，循环数组
   - PriorityQueue：优先队列，数组、二叉堆实现
 - DisjointSet：并查集/连通集
-  - More/UFS：抽取了并查集最佳的实现方法，仅头文件，给之后的MST Kruskal算法用
+  - graph/UFS.h：抽取了并查集最佳的实现方法，仅头文件，给之后的MST Kruskal算法用
 - algorithm/KMP：字符串匹配的KMP算法，前缀函数、next数组
-- 树：
+- 树（tree/）：
   - BinaryTree：二叉树，重点遍历
     - BST：二叉搜索树，重点插入/删除/查询，递归写法
   - B-tree：给定参数t的B-tree，**代码可以跳过**
@@ -41,11 +43,12 @@
 - 集合和哈希
   - More/BitSet：集合的位向量实现方法，类似vector<bool>
   - Hash：无序set/map的实现方法，哈希表
-- Graph：图，邻接表实现
+- Graph（graph/）：图，邻接表实现
   - GraphTraversal：图的dfs和bfs遍历，迭代和递归，前序
   - WeightedGraph：有权图
   - Dijkstra：最短路径算法
   - MST：最小生成树的Kruskal和Prim算法
+  - TopologicalSort：拓扑排序，带重启的DFS，后序的逆序
 
 ## 其他
 

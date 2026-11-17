@@ -10,7 +10,7 @@
 #include <tuple>
 #include <vector>
 
-#include "More/UFS.h"
+#include "UFS.h"
 #include "WeightedGraph.h"
 
 const int INF = 0x3f3f3f3f;
