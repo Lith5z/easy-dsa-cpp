@@ -49,6 +49,8 @@
   - Dijkstra：最短路径算法
   - MST：最小生成树的Kruskal和Prim算法
   - TopologicalSort：拓扑排序，带重启的DFS，后序的逆序
+- 排序（sort/）：除非不好写，优先原地算法
+  - SelectionSort：直接插入排序，堆排序和复用数组作为堆
 
 ## 其他
 
