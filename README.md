@@ -50,7 +50,11 @@
   - MST：最小生成树的Kruskal和Prim算法
   - TopologicalSort：拓扑排序，带重启的DFS，后序的逆序
 - 排序（sort/）：除非不好写，优先原地算法
-  - SelectionSort：直接插入排序，堆排序和复用数组作为堆
+  - SelectionSort：直接选择排序，堆排序和复用数组作为堆
+  - InsertSort：直接插入排序
+  - MergeSort：归并排序
+  - ExchangeSort：冒泡排序和快速排序
+  - RadixSort：计数排序，LSD基数排序
 
 ## 其他
 
