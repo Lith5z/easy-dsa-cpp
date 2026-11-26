@@ -33,10 +33,12 @@ void mergeSortHelper(std::vector<int>& arr, std::vector<int>& aux, int left,
     merge(arr, aux, left, mid, right);
 }
 // 合并arr的[left..mid]和[mid+1..right]两部分
+// 双指针扫描，见过无数次，没必要看
 void merge(std::vector<int>& arr, std::vector<int>& aux, int left, int mid,
            int right) {
+    // 先拷贝原数组到aux
     for (int i = left; i <= right; i++) aux[i] = arr[i];
-    // 剩下的就是双指针合并两个有序数组
+    // 剩下的就是双指针合并两个有序数组，结果存到arr
     int i = left, j = mid + 1;
     int k = left;
     while (i <= mid && j <= right) {
